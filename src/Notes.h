@@ -27,6 +27,11 @@
  * so when it enters an if statement it only checks if the comparision is zero or not 
  * a nullptr is zero, thats is why you can check if pointer is null or not by just inserting into an if
  * (NULL is zero and nullptr is a prvalue of type nullptr_t which evaluates to zero when converted to a literal type (void*)0)
+ *
+ * Loops
+ * 
+ * While and for are the same but thing but one is more structured to iterate and the other to run inside a condition
+ * do while run first the until the given condition stays true
 */
 
 /** Notes for pointers
@@ -99,4 +104,20 @@ int main() {
 }
 
  * 
+*/
+
+/**
+ * Classes 
+ * 
+ * Allows the grouping of data and methods to manipulate that data
+ * Variable made from class are objects and a new object variable is an instance of said object
+ * Classes makes everything private by default
+ * functions inside classes are called methods 
+ * 
+ * Structs
+ * 
+ * Same as classes but by default members are public
+ * Used to maintain retro compatibility with c language
+ * Usually used for simpler structure types
+ * #define struct class -> would change the keyword struct per class and everything 
 */
