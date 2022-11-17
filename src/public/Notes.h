@@ -19,6 +19,10 @@
  * Files without .h extension are from the c++ standard lib (with .h are from the c standard lib)
 */
 
-/** Notes for 
- * 
+/** Notes for if statements
+ * if checks if what it receives is zero or not
+ * comparisson checks if every bit in each side if the comparision is the same in a == 
+ * so when it enters an if statement it only checks if the comparision is zero or not 
+ * a nullptr is zero, thats is why you can check if pointer is null or not by just inserting into an if
+ * (NULL is zero and nullptr is a prvalue of type nullptr_t which evaluates to zero when converted to a literal type (void*)0)
 */
