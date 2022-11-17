@@ -62,3 +62,41 @@ int main() {
  * 
 */
 
+/**
+ * References 
+ * 
+ * Syntax sugar for pointers
+ * references can point to nullptr, needs a variable
+ * 
+#include <iostream>
+#include <string.h>
+
+//BOTH FUNCTIONS DO THE SAME BECAUSE REFERENCES ARE JUST AN ALIAS
+void inc(int& val){
+    val++;
+}
+
+void inc2(int* val){
+    //by order of operations it would increment first and then deref 
+    //(incressing the memvalue)
+    (*val)++;
+}
+
+int main() {
+    int a = 3;
+    int b = 8;
+    //Alias to a
+    int& refA = a;
+    refA = b;   // a = 8
+
+    refA = 2;
+
+    inc(a);
+    inc2(&a);
+    inc(refA);
+
+    std::cin.get();
+}
+
+ * 
+*/
