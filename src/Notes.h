@@ -113,6 +113,10 @@ int main() {
  * Variable made from class are objects and a new object variable is an instance of said object
  * Classes makes everything private by default
  * functions inside classes are called methods 
+ * when writing a class it is usefull to right as youre going to use it
+ * Classes in c++ are just functions that receive a param with the class name
+ * ##################################################################
+ * 
  * 
  * Structs
  * 
@@ -120,4 +124,19 @@ int main() {
  * Used to maintain retro compatibility with c language
  * Usually used for simpler structure types
  * #define struct class -> would change the keyword struct per class and everything 
+*/
+
+/**
+ * Static
+ * 
+ * static ouside of class -> present in declared translation unit
+ * A global static var will be linked to that translation unit (it will be a private member of that file)
+ * you can mark it as extern in the files outside its declaration file and then it will look for it
+ * 
+ * External linking -> making it look in another translation unit for this variable
+ * extern int s_var;
+ * 
+ * ###############################################
+ * static inside of class -> it will be shared by all instances of the class in which is declared
+ * 
 */
