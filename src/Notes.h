@@ -223,7 +223,7 @@ class entity
 public:
     // If we dont want a default contrutor, like when we want a static only class
     entity() = delete;
-    
+
     entity() {
         x = 6;
         y = 9;
@@ -245,6 +245,51 @@ int main() {
     
     e1.Print();
     
+    std::cin.get();
+}
+*/
+
+
+/**
+ * Destructor
+ * 
+ * Method called when a class instance is destroyed
+ * 
+ * Note than even when calling the destructor explicitly it will be run again when the application dies
+
+#include <iostream>
+
+class entity
+{
+public:
+    static int s_Counter;
+
+    entity() {
+        
+        ++s_Counter;
+        m_Id = s_Counter;
+
+        std::cout << "An entity class instance[" << m_Id <<"] has been CREATED!" << std::endl;
+    }
+    ~entity() {
+        --s_Counter;
+        std::cout << "An entity class instance[" << m_Id <<"] has been DESTROYED!" << std::endl;
+    }
+private:
+    int m_Id = 0;
+};
+
+int entity::s_Counter;
+
+int main() {
+
+    // Since this is stack allocatted the destructor will only be called when the application ends
+    entity e1;
+
+    entity e2;
+
+    e2.~entity();
+
     std::cin.get();
 }
 */
