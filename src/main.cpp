@@ -1,8 +1,6 @@
 #include <iostream>
 
-int main(){
-    std::cout << "CPlusPlus_Training" << std::endl;
-    
+int main() {
+
     std::cin.get();
-    return 0;
 }

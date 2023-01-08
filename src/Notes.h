@@ -136,7 +136,49 @@ int main() {
  * External linking -> making it look in another translation unit for this variable
  * extern int s_var;
  * 
- * ###############################################
- * static inside of class -> it will be shared by all instances of the class in which is declared
+ * ##############################################################################################
+ * static var inside of class -> it will be shared by all instances of the class in which is declared
+ * Example Code:
  * 
-*/
+ * #include <iostream>
+ * 
+ * struct entity {
+ * // This makes them part of the entity namespace even though they are inside the class/struct
+ * // They still obey the class acess rules like being private or public but they do not belong to any instance
+ *     static int x, y;
+ * 
+ * 
+ * // Static methods cannot acess non static variables
+ * // because a class method receives an instance of the class that belongs to -> void Print(entity e) {} 
+ * // and a static method doesnt so it cannot know a instanced dependent variable
+ * 
+ *     static void Print() {
+ *       std::cout << "x: " << x << std::endl;
+ *       std::cout << "y: " << y << std::endl;
+ *     }
+ * };
+ * 
+ * // Defining the scope of the static variables
+ * int entity::x;
+ * int entity::y;
+ * 
+ * int main() {
+ * 
+ *     
+ *     entity e1;
+ *     
+ *     entity::x = 7;
+ *     entity::y = 7;
+ * 
+ *     entity e2;
+ * 
+ *     // Class alias for the static var      
+ *     e2.x = 6;
+ *     e2.y = 9;
+ * 
+ *     e1.Print();
+ * 
+ * 
+ *     std::cin.get();
+ * }
+ */
