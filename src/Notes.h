@@ -139,52 +139,51 @@ int main() {
  * ##############################################################################################
  * static var inside of class -> it will be shared by all instances of the class in which is declared
  * Example Code:
- * 
- * #include <iostream>
- * 
- * struct entity {
- * // This makes them part of the entity namespace even though they are inside the class/struct
- * // They still obey the class acess rules like being private or public but they do not belong to any instance
- *     static int x, y;
- * 
- * 
- * // Static methods cannot acess non static variables
- * // because a class method receives an instance of the class that belongs to -> void Print(entity e) {} 
- * // and a static method doesnt so it cannot know a instanced dependent variable
- * 
- *     static void Print() {
- *       std::cout << "x: " << x << std::endl;
- *       std::cout << "y: " << y << std::endl;
- *     }
- * };
- * 
- * // Defining the scope of the static variables
- * int entity::x;
- * int entity::y;
- * 
- * int main() {
- * 
- *     
- *     entity e1;
- *     
- *     entity::x = 7;
- *     entity::y = 7;
- * 
- *     entity e2;
- * 
- *     // Class alias for the static var      
- *     e2.x = 6;
- *     e2.y = 9;
- * 
- *     e1.Print();
- * 
- * 
- *     std::cin.get();
- * }
+  
+  #include <iostream>
+  
+  struct entity {
+  // This makes them part of the entity namespace even though they are inside the class/struct
+  // They still obey the class acess rules like being private or public but they do not belong to any instance
+      static int x, y;
+  
+  
+  // Static methods cannot acess non static variables
+  // because a class method receives an instance of the class that belongs to -> void Print(entity e) {} 
+  // and a static method doesnt so it cannot know a instanced dependent variable
+  
+      static void Print() {
+        std::cout << "x: " << x << std::endl;
+        std::cout << "y: " << y << std::endl;
+      }
+  };
+  
+  // Defining the scope of the static variables
+  int entity::x;
+  int entity::y;
+  
+  int main() {
+  
+      
+      entity e1;
+      
+      entity::x = 7;
+      entity::y = 7;
+  
+      entity e2;
+  
+      // Class alias for the static var      
+      e2.x = 6;
+      e2.y = 9;
+  
+      e1.Print();
+  
+  
+      std::cin.get();
+  }
  */
 
 /**
- * #include <iostream>
 /**
  * Enums
  * 
@@ -192,18 +191,60 @@ int main() {
  * 
  * The values will increment from the last value placed
  * 
+  #include <iostream>
+  
+  enum Letters { 
+      A = 7, B, C, D
+  };
+  
+  int main() {
+  
+      Letters letter = Letters::B;
+  
+      std::cout << "Print letter: " << letter << std::endl;
+  
+      std::cin.get();
+  }
+  
+*/
+
+/**
+
+ * Constructors
  * 
- * enum Letters { 
- *     A = 7, B, C, D
- * };
+ * Method that runs when a class instantiates
  * 
- * int main() {
  * 
- *     Letters letter = Letters::B;
- * 
- *     std::cout << "Print letter: " << letter << std::endl;
- * 
- *     std::cin.get();
- * }
- * 
+#include <iostream>
+
+class entity
+{
+    
+public:
+    // If we dont want a default contrutor, like when we want a static only class
+    entity() = delete;
+    
+    entity() {
+        x = 6;
+        y = 9;
+    }
+
+    void Print() {
+        std::cout << "Printing X: " << x << std::endl;
+        std::cout << "Printing Y: " << y << std::endl;
+    }
+
+private:
+    int x, y;
+};
+
+
+int main() {
+
+    entity e1;
+    
+    e1.Print();
+    
+    std::cin.get();
+}
 */
