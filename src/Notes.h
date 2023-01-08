@@ -182,3 +182,28 @@ int main() {
  *     std::cin.get();
  * }
  */
+
+/**
+ * #include <iostream>
+/**
+ * Enums
+ * 
+ * Enumeration of values --> A way to name an integer
+ * 
+ * The values will increment from the last value placed
+ * 
+ * 
+ * enum Letters { 
+ *     A = 7, B, C, D
+ * };
+ * 
+ * int main() {
+ * 
+ *     Letters letter = Letters::B;
+ * 
+ *     std::cout << "Print letter: " << letter << std::endl;
+ * 
+ *     std::cin.get();
+ * }
+ * 
+*/

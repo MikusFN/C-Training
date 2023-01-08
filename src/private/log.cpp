@@ -1,6 +1,6 @@
 #include "../public/log.h"
 
-void Log::SetLevel(int level) {
+void Log::SetLevel(LogLevel level) {
     m_LogLevel = level;
 }
 void Log::Info(std::string msg) {

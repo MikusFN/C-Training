@@ -7,19 +7,20 @@
 class Log
 {
 
-private:
-    int m_LogLevel;
 public:
     enum LogLevel {
-         INFO = 0,
+         ERROR,
          WARNING,
-         ERROR
+         INFO
      };
     
-    void SetLevel(int level);
+    void SetLevel(LogLevel level);
     void Info(std::string msg);
     void Warn(std::string msg);
     void Error(std::string msg);
+
+private:
+    LogLevel m_LogLevel;
 };
 
 /**
