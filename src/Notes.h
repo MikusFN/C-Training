@@ -293,3 +293,62 @@ int main() {
     std::cin.get();
 }
 */
+
+/**
+ * Inheritance
+ * 
+ * Allows common logic to be shared from a base class to its children
+ * Avoids code repetition
+ * 
+#include <iostream>
+
+class Entity {
+
+    protected:
+        void Move(float deltaX, float deltaY) {
+            m_posX += deltaX;
+            m_posY += deltaY;
+        }
+
+        float m_posX, m_posY;
+};
+
+// Player is now player and entity (both types)
+class Player : public Entity {
+
+    public:
+        void SetName(const char* name) {
+            m_name = name;
+        }
+
+        void PrintName() {
+            std::cout << 
+            "Entity name - " << m_name 
+            << " at position [ X : " << m_posX  << " Y : " << m_posY << " ]"
+            << std::endl;   
+        }
+
+        void MoveEntity(float deltaX, float deltaY) {
+            Move(deltaX, deltaY);
+        }
+    private:
+        const char* m_name;
+};
+
+int main() {
+
+    std::cout << "size of Entity = " << sizeof(Entity) << std::endl;
+    std::cout << "size of Player = " << sizeof(Player) << std::endl;
+    std::cout << "size of Char = " << sizeof(char) << std::endl;
+    std::cout << "size of Char* = " << sizeof(char*) << std::endl;
+
+    Player _player;
+    _player.SetName(("My Player"));
+    _player.MoveEntity(3, 7);
+    _player.PrintName();
+
+    std::cin.get();
+}
+
+*/
+
