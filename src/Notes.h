@@ -38,6 +38,7 @@
  * 
  * Int that stores an adress for all types
  * Types are just to tell the compiler what data is stored in the pointer
+ * You can call free on a nullptr because it wont do nothing 
  * 
 #include <iostream>
 #include <string.h>
@@ -352,3 +353,163 @@ int main() {
 
 */
 
+/**
+ * Virtual Functions
+ * 
+ * Dynamic dispatch - Implemented as a V-table [map of virtual functions inside the base class which will be done at runtime] by the compiler
+
+#include <iostream>
+#include <memory>
+
+class Entity {
+    public:
+        void SetName(const char* name) {
+            m_name = name;
+        }
+        // Tell the compiler to create a V-Table for this function so it can be overritten
+        virtual void PrintName() {
+               std::cout << 
+               "Entity name - " << m_name 
+               << std::endl;   
+        }
+    protected:
+        // Sharing variable with children
+        const char* m_name = "DEFAULT ENTITY";
+
+};
+
+// Player is now player and entity (both types)
+class Player : public Entity {
+
+    public:
+        void SetName(const char* name) {
+            m_name = name;
+        }
+
+        // The key word override (introduced C11) is optional
+        void PrintName() override {
+               std::cout << 
+               "Player name - " << m_name 
+               << std::endl;   
+        }
+    private:
+        const char* m_name = "DEFAULT PLAYER";
+    
+};
+
+void Print(Entity* entity)  {
+    entity->PrintName();
+}
+
+int main() {
+    Entity _entity;
+    _entity.SetName("My Entity");
+    _entity.PrintName();
+
+    Player _player;
+    _player.SetName("My Player");
+    _player.PrintName();
+
+    //std::unique_ptr<Player> _playerUnique = std::make_unique<Player>(_player);
+    Print(&_player); 
+
+    Entity* _entity2 = &_player;
+    _entity2->PrintName();
+
+    std::cin.get();
+}
+
+*/
+
+/**
+ * Pure Virtual Functions
+ * 
+ * Like a abstract class / Interface from other languages
+ * Is a virtual function that demands the child class to define what this function is
+ * If a sub class does not implement all pure virtual then it can not be instantiated 
+ 
+#include <iostream>
+#include <memory>
+
+class Printable {
+    public:
+        virtual void PrintName() = 0;
+        virtual void SetName(const char* name) = 0;
+
+};
+
+class Entity : public Printable {
+    public:
+
+        void SetName(const char* name) {};
+
+        void PrintName() override {
+               std::cout << 
+               "Entity name - " << m_name 
+               << std::endl;   
+        }
+        
+    protected:
+        // Sharing variable with children
+        const char* m_name = "DEFAULT ENTITY";
+
+};
+
+// Player is now player and entity (both types)
+class Player : public Entity{
+
+    public:
+        void SetName(const char* name) {
+            m_name = name;
+        }
+
+        // The key word override (introduced C11) is optional
+        void PrintName() override {
+               std::cout << 
+               "Player name - " << m_name 
+               << std::endl;   
+        }
+    private:
+        const char* m_name = "DEFAULT PLAYER";
+    
+};
+
+void Print(Printable* printable)  {
+    printable->PrintName();
+}
+
+int main() {
+    //You need to use a class with the implementation of the virtual functions
+    Entity* _entity = new Player();
+    _entity->SetName("My Entity");
+    
+    // Even though this class is a sub class of Printable it does not implement printable
+    // Making it unsuable for the Print method
+    //Print(_entity);
+
+    Player _player;
+    _player.SetName("My Player");
+    _player.PrintName();
+
+    //std::unique_ptr<Player> _playerUnique = std::make_unique<Player>(_player);
+    Print(&_player);
+    Print(_entity);
+
+    Entity _entityPlayer = *dynamic_cast<Entity*>(_entity);
+    _entityPlayer.PrintName();
+
+    Print(&_entityPlayer);
+    
+    std::cin.get();
+}
+
+*/
+
+/**
+ *  Vector
+ * 
+ *  In stack you only have about 1 MB of space so be aware on what you want in the stack
+ *  std::vector<...> => allocates in the stack the vector strcuture but the object data is on the heap, and when the vector desctrutor is called the data will be deleted form the heap
+ * 
+ *  std::vector<int> (stack and no need to delete) vs int* = new (raw pointer will be heap allocated with the need of deleting it) 
+ **/
