@@ -506,6 +506,62 @@ int main() {
 */
 
 /**
+ * Visibility 
+ * 
+ * Has no effect on how the program runs, only used to better organize youre code
+ * 
+ * Private, Protected, Public
+ * 
+ * Private can only be accessed by the class scope or friend classes
+ * Protected can be accessed by subclasses
+ * Public is accessed by everyone
+ 
+ #include <iostream>
+
+struct Entity {
+    // Public by default
+    int x, y;
+private:
+    int z;
+protected:
+    int w;
+};
+
+class Player : Entity {
+    // Private by default
+    int z;
+
+    public:
+    void Print(){
+        std::cout << "Public method" << std::endl;
+        SetValue(14);
+        std::cout << "z = " << z << " and w = " << w << std::endl;
+    }
+    private:
+    void SetValue(int z){
+        this->z = z;
+        this->w = x * y;
+    }
+
+};
+
+
+int main() {
+
+    Player player;
+    Entity* entity = reinterpret_cast<Entity*>(&player);
+    entity->x = 5;
+    entity->y = 12;
+    
+    player.Print();
+
+    std::cin.get();
+}
+
+
+*/
+
+/**
  *  Vector
  * 
  *  In stack you only have about 1 MB of space so be aware on what you want in the stack
