@@ -558,7 +558,63 @@ int main() {
     std::cin.get();
 }
 
+*/
 
+/**
+ * Smart Pointers
+ * 
+ * weak_ptr use case where we have a global instance of a class but we return a shared_ptr of it so whom ever gets this instance takes ownership of its lifespan
+ * weak_ptr as a lock function that returns a shared pointer after checking if its alive or not (!expired() return nullptr)
+ * This is a good case if we dont want to keep something alive when created (as in shared_ptr where it will only die when reset() is called on it)
+ * 
+#include <iostream>
+#include <memory>
+
+// Example of singleton that gives owenership, (when we will have only one instance of this object)
+// so it wont die when you start using it and you can check always if its valid in a safe way 
+// This shows why we would want something to be a static shared_ptr or a static weak_ptr 
+
+class Entity {
+    
+    public:
+    // Transfer object ownership
+      static std::shared_ptr<Entity> GetInstance();
+};
+
+
+// Global instance (only accessible by including this file)
+// Could be a raw pointer (example to use the lock function and not write it explicitly)
+static std::weak_ptr<Entity> s_currentInstance;
+
+// For this case we have the function declared after the definition
+// so we can have a shared static instance of the class type Entity
+// otherwise it would not know what s_currentInstance 
+// and the instance above if is not placed below the class would not know what the Entity class is
+std::shared_ptr<Entity> Entity::GetInstance() {
+    // if(m_currentInstance.expired())
+    //     return nullptr;
+    
+    return s_currentInstance.lock(); 
+}
+
+int main() {
+
+    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+
+    s_currentInstance = entity;
+
+    // Now Takes ownership of this class instance
+    auto entityCopy = Entity::GetInstance();
+
+    entity.reset();
+
+    std::cout << "Entity alive count - " << entity.use_count() << std::endl;
+
+    std::cout << "EntityCopy alive count - " << entityCopy.use_count() << std::endl;
+
+    std::cin.get();
+}
+    
 */
 
 /**
