@@ -561,6 +561,67 @@ int main() {
 */
 
 /**
+ * Arrays
+ * 
+ * A collection of a data type stored continously
+ * Writing out of memory will give and error in debug mode, 
+ * but outsode of debug it will allow you to write to that memory space that could be another variable from the code
+ * leading to bugs in modes with optimizations
+ * In c++ there is no way to find out the size of the array, except for compiler dependent methods which should no tbe used
+ * Or use the sizeof array divided by the size of data (manual method stack only) 
+ * Heap allocation size needs to be maintained manually
+ * 
+#include <iostream>
+#include <array>
+
+int main() {
+    // Stack allocation ( dies when out of scope)
+    int aux[5];
+
+    // Heap allocation causes memory read indirection which (when jumping form pointer to pointer)
+    // Could lead to massive performance hits so we should always try and allocate memory in stack in order to have them close to each other
+    int* auxHeap = new int[5];
+
+    // C++11 array with balance loading and method overhead for maintenance
+    std::array<int, 5> auxC11;
+
+    // An array data is a pointer of that data type that has functions to control said data
+    int* ptrAux = aux;
+
+    for (size_t i = 0; i < 5; i++)
+    {
+        aux[i] = i;
+    }
+
+    aux[3] = 77;
+    // Dereferencing the pointer and giving it an offset is the same as above
+    // Adds 3 of that data type (3 * 4 = 12)
+    *(ptrAux + 3) = 69;
+    // Since a char is one byte we need to add 12 to reach the same position
+    *(int*)((char*)ptrAux + 12) = 169;
+    
+    for (size_t i = 0; i < auxC11.size(); i++)
+    {
+        auxC11[i] = aux[i];
+    }
+    
+    // Can only be used in a stack allocated array since the size of heap array will give us the size of the pointer (4 bytes)
+    const int count = sizeof(aux)/sizeof(int);
+    for (size_t i = 0; i < count; i++)
+    {
+        std::cout << " aux array at [" << i << "] = " << *(ptrAux+i) << std::endl; 
+        std::cout << " aux array in C++11 at [" << i << "] = " << auxC11[i] << std::endl; 
+    }
+     
+    // Heap needs to be deleted manually or only when the program dies will it be freed  
+    delete [] auxHeap;
+
+    std::cin.get();
+}
+
+*/
+
+/**
  * Smart Pointers
  * 
  * weak_ptr use case where we have a global instance of a class but we return a shared_ptr of it so whom ever gets this instance takes ownership of its lifespan
