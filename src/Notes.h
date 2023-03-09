@@ -568,6 +568,7 @@ int main() {
  * but outsode of debug it will allow you to write to that memory space that could be another variable from the code
  * leading to bugs in modes with optimizations
  * In c++ there is no way to find out the size of the array, except for compiler dependent methods which should no tbe used
+ * In debug mode the compiler will insert characters just outside of boundary lenght so we know if er are out of bounds and can throw an error
  * Or use the sizeof array divided by the size of data (manual method stack only) 
  * Heap allocation size needs to be maintained manually
  * 
@@ -686,3 +687,46 @@ int main() {
  * 
  *  std::vector<int> (stack and no need to delete) vs int* = new (raw pointer will be heap allocated with the need of deleting it) 
  **/
+
+
+/**
+ * Strings 
+ * A group of characters that end in a null termination character ('\0' or 0)
+ * chars are define by single quotes '' and char* are double quotes ""
+ * You cant concat "" + "" because they are const chars (but you can add string objects)
+ * In C++ the standard lib has a class called string
+ * The iostream has a definition of string without the << operator overload, so to use it with cout we need to include <string>
+ * check if a string contains something -> s.find() returns the index of the passed param and if you chech if is not invalid (string::npos) it exists 
+ * Anytime we pass a readonly string to a function we should always pass it const and by reference (const string&) so we avoid copying (too inefficient) and with const we cannot change it.
+ * String literals -> "something" (something in double quotes)
+ * 
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+
+
+
+int main() {
+    using namespace std::string_literals;
+
+    std::u32string name = U"something "s + U"new"; // the s after a const char* (""s) converts it to a string  
+
+    const char* multiLine = R"(I can write a paragraph 
+    if I want because this is a raw string which can be multiline ;))";
+
+    const char* anotherExample = u8"Well here I am \n"
+    "In a new line"
+    "Not has cool as raw strings but it works ;)";
+
+    const wchar_t* wideChar = L"This can write uses extended symbols";
+    const char16_t* twoByte = u"This stores up to 16 bits of memory";
+    const char32_t* fourByte = U"This stores up to 32 bits of memory";
+
+    std::string s = "string";
+    bool s_rvalue = s.find("l") != std::string::npos;
+    if(s_rvalue){
+        std::cout << "Character found in string!" << std::endl;
+    }
+    std::cin.get();
+}
+*/
